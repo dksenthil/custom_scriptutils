@@ -9,12 +9,13 @@
  less -S  readset.txt
  ```
 > Note: Make sure that the sample name and library name are different
-
+```
 # download paired-end RNA-seq data with 8 threads
 parallel-fastq-dump --sra-id SRR17062757 --threads 8 --split-files --gzip
+```
 
 ## Batch Download SRA
-
+```
 # tested on Linux and Mac. It may not work on Windows
 >>> from bioinfokit.analys import fastq
 
@@ -37,5 +38,5 @@ fastq.sra_bd(file='sra_accessions.txt', t=16, other_opts='--outdir temp --skip-t
 # for example, SRA accession SRR12564282 will give  three FASTQ files 
 # (sample barcode,  cell barcode, and biological read FASTQ files)
 fastq.sra_bd(file='path_to_sra_file', t=16, other_opts='--include-technical --split-files')
-
-Source: https://www.reneshbedre.com/blog/ncbi_sra_toolkit.html
+````
+>Source: https://www.reneshbedre.com/blog/ncbi_sra_toolkit.html
