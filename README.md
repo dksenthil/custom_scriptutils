@@ -14,7 +14,7 @@
 parallel-fastq-dump --sra-id SRR17062757 --threads 8 --split-files --gzip
 ```
 
-## Batch Download SRA
+## 2. Batch Download SRA
 ```
 # tested on Linux and Mac. It may not work on Windows
 >>> from bioinfokit.analys import fastq
