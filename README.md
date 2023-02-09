@@ -40,3 +40,41 @@ fastq.sra_bd(file='sra_accessions.txt', t=16, other_opts='--outdir temp --skip-t
 fastq.sra_bd(file='path_to_sra_file', t=16, other_opts='--include-technical --split-files')
 ````
 >Source: https://www.reneshbedre.com/blog/ncbi_sra_toolkit.html
+
+## 3. Map ensembl_id to hgnc_name or go_id using biomaRt
+
+```
+library(biomaRt)
+# load the biomartr package
+library(biomartr)
+# list all available databases
+biomartr::getMarts()
+ensembl <- useEnsembl(biomart = "genes")
+datasets <- listDatasets(ensembl)
+head(datasets)
+
+mart_db <- useEnsembl(biomart = "genes", dataset = "mfascicularis_gene_ensembl")
+
+# show all elements of the data.frame
+
+options(tibble.print_max = Inf)
+listEnsemblGenomes()
+#demoset <- c("ENSMFAG00000034186","ENSMFAG00000038403","ENSMFAG00000049873"),         
+
+ensembl_geneset <- read.table("~/Downloads/Macaca_fascicularis_6.0.109_ensembl_id.tsv",header = F)
+# list all available attributes for dataset: hsapiens_gene_ensembl
+head( biomartr::getAttributes(mart    = "ENSEMBL_MART_ENSEMBL", 
+                              dataset = "mfascicularis_gene_ensembl"), 10 )
+
+
+resultTable <- biomaRt::getBM(attributes = c("entrezgene_id","go_id","hgnc_symbol","external_gene_name","gene_biotype"),       
+                              filters    = "ensembl_gene_id",       
+                              values     = ensembl_geneset,
+                              mart       = mart_db)  
+
+saveRDS(resultTable,"ensembl_id_annotation_mapped.Rds") 
+```
+
+
+
+
