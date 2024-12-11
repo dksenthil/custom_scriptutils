@@ -72,6 +72,8 @@ resultTable <- biomaRt::getBM(attributes = c("entrezgene_id","go_id","hgnc_symbo
                               values     = ensembl_geneset,
                               mart       = mart_db)  
 
+## 4. geomxTools corrected for inputting custom slide name 
+
 saveRDS(resultTable,"ensembl_id_annotation_mapped.Rds") 
 ```
 
